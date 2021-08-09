@@ -1,14 +1,15 @@
-from pyttsx3 import speak
-import speech_recognition as sr
+from pyttsx3 import speak  
+import speech_recognition as sr        
 import pyttsx3
 import webbrowser
 import os
 import pywhatkit
 import datetime
+from PyDictionary import PyDictionary as d
 
 r=sr.Recognizer()
 #func
-def speakText(command):
+def speakText(command):   #speaks
     engine= pyttsx3.init()
     engine.say(command)
     engine.runAndWait 
@@ -57,11 +58,11 @@ def task():
     def wishme():
         hour= int(datetime.datetime.now().hour)
         if hour>=0 and hour<12:
-            speak("Good Morning Shiva!")
+            speak("Good Morning Mam!")
         elif hour>=12 and hour<18:
-            speak("Good Afternoon Shiva!")
+            speak("Good Afternoon Mam!")
         else:
-            speak("Good Evening Shiva!")
+            speak("Good Evening Mam!")
 
     def music():
         speak('tell me the name of the song')
@@ -73,7 +74,37 @@ def task():
         else:
             pywhatkit.playonyt(musicname)
         speak("Ypur song has been started, Enjoy Mam")
-        
+
+    def dictionary():
+        speak("Activated dictionary!")
+        speak("Tell Me The Problem!")
+        prob1 = takecom()
+
+        if 'meaning' in prob1:
+            prob1 = prob1.replace("what is the","")
+            prob1 = prob1.replace("jarvis","")     
+            prob1 = prob1.replace("of","") 
+            prob1 = prob1.replace("meaning of","")
+            result =d.meaning(prob1)
+            speak(f"The Meaning for {prob1} is {result}")
+
+        elif 'synonym' in prob1:
+            prob1 = prob1.replace("what is the","")
+            prob1 = prob1.replace("jarvis","")     
+            prob1 = prob1.replace("of","") 
+            prob1 = prob1.replace("synonym of","")
+            result =d.synonym(prob1)
+            speak(f"The synonym for {prob1} is {result}")
+
+        elif 'antonym' in prob1:
+            prob1 = prob1.replace("what is the","")
+            prob1 = prob1.replace("jarvis","")     
+            prob1 = prob1.replace("of","") 
+            prob1 = prob1.replace("antonym of","")
+            result =d.antonym(prob1)
+            speak(f"The antonym for {prob1} is {result}")
+            speak("Exited Dictionary!")
+
     wishme()
     while True:
         query=takecom()
@@ -111,7 +142,29 @@ def task():
         
         elif 'close vlc' in query:
             closeapp()
+        
+        elif 'google search' in query:
+            speak('this is what i found for you mam')
+            query= query.replace('shruti','')
+            query= query.replace('google search','')
+            pywhatkit.search(query)
+            speak('done sir')
 
+        elif 'open website' in query:
+            speak('Tell me the name of the website')
+            name= takecom()
+            web ='https://www.' + name + '.com' 
+            webbrowser.open(web)
+            speak("Done sir")
+
+        elif 'dictionary' in query:
+            dictionary()
+        
+        elif 'close all tabs' in query:
+            os.system('taskkill /F /IM chrome.exe')
+
+        elif 'shutdown' in query:  #restart
+            pywhatkit.shutdown(time=1)
         
 task()
         
