@@ -3,6 +3,7 @@ import json
 from tkinter import *
 from PIL import ImageTk,Image
 from tkinter.messagebox import showinfo, showerror
+from tkinter import messagebox
 import smtplib as s 
 import datetime
 from datetime import date
@@ -226,72 +227,215 @@ def dateTime():
     canvas.mainloop() 
 
 
-def Calculator():
+def TicTacToe():
+    root = Tk()
+    root.title('Tic Toc Toe')
 
-    def click(event):
-        text= event.widget.cget("text")  #event.widget=> gives button that has been clicked::: .cget("text")=> gives the text on the button
-        print(text)  #print on click (on terminal)  #optional
+    # X starts => True
+    Clicked= True
+    count=0
 
-        if text== "=":
-            if scvalue.get().isdigit():
-                value= int(scvalue.get())   #typecasting to int if it is adigit
-                print(value)
-            else:    #if it is not adigit but an expression as 2x3
-                try:
-                    value= eval(screen.get())  #eval func evaluates a string
-                except Exception as e:
-                    value= "Error !"
+    #disabling all btns
+    def disableAllBtn():
+        b1.config(state=DISABLED)
+        b2.config(state=DISABLED)
+        b3.config(state=DISABLED)
+        b4.config(state=DISABLED)
+        b5.config(state=DISABLED)
+        b6.config(state=DISABLED)
+        b7.config(state=DISABLED)
+        b8.config(state=DISABLED)
+        b9.config(state=DISABLED)
 
-            scvalue.set(value)     #seting value in scvalue
-            screen.update()         
-
-        elif text== "C":
-            scvalue.set("")
-            screen.update()
-
-        else:   #if it is a number
-            scvalue.set(scvalue.get() + str(text))   #setting sc value again
-            screen.update()  #will update entry at screen with the new value every time
-
-
-    root= Tk()
-    root.geometry("270x570")
-    root.title("Calculator")
-    # root.call('wm', 'iconphoto', root._w, PhotoImage(file='cal.png'))  #icon
-
-    scvalue= StringVar()
-    scvalue.set("")
-    screen= Entry(root,textvar=scvalue, font="lucida 30 bold")
-    screen.pack(fill=X,padx=10,pady=10,ipadx=10)
-
-    #********************FRAME 1-6 ***************************
-    l=[['9','8','7'],['6','5','4'],['3','2','1'],['0','-','+'],['*','/','%'],[['.','blue'],['=','green'],['C','red']]]
+    #Check won
+    def CheckWon():
+        global winner
+        winner= False
         
-    for i in range(len(l)):
+        #Check for X
+        #horizontal
+        if b1["text"]=="X" and b2["text"]=="X" and b3["text"] == "X":
+            b1.config(bg="red")
+            b2.config(bg="red")
+            b3.config(bg="red")
+            winner= True
+            messagebox.showinfo("Tic Tac Toe", "CONGRATULATONS YOU WON")
+            disableAllBtn()
+        elif b4["text"]=="X" and b5["text"]=="X" and b6["text"] == "X":
+            b4.config(bg="red")
+            b5.config(bg="red")
+            b6.config(bg="red")
+            winner= True
+            messagebox.showinfo("Tic Tac Toe", "CONGRATULATONS YOU WON")
+            disableAllBtn()
+        elif b7["text"]=="X" and b8["text"]=="X" and b9["text"] == "X":
+            b7.config(bg="red")
+            b8.config(bg="red")
+            b9.config(bg="red")
+            winner= True
+            messagebox.showinfo("Tic Tac Toe", "CONGRATULATONS YOU WON")
+            disableAllBtn()
         
-        #making a frame
-        f= Frame(root, bg="black")  
-          
-        for j in range(len(l[i])):
+        #vertical
+        elif b1["text"]=="X" and b4["text"]=="X" and b7["text"] == "X":
+            b1.config(bg="red")
+            b4.config(bg="red")
+            b7.config(bg="red")
+            winner= True
+            messagebox.showinfo("Tic Tac Toe", "CONGRATULATONS YOU WON")
+            disableAllBtn()
+        elif b2["text"]=="X" and b5["text"]=="X" and b8["text"] == "X":
+            b2.config(bg="red")
+            b5.config(bg="red")
+            b8.config(bg="red")
+            winner= True
+            messagebox.showinfo("Tic Tac Toe", "CONGRATULATONS YOU WON")
+            disableAllBtn()
+        elif b3["text"]=="X" and b6["text"]=="X" and b9["text"] == "X":
+            b3.config(bg="red")
+            b6.config(bg="red")
+            b9.config(bg="red")
+            winner= True
+            messagebox.showinfo("Tic Tac Toe", "CONGRATULATONS YOU WON")
+            disableAllBtn()
+        
+        #diagonal
+        elif b1["text"]=="X" and b5["text"]=="X" and b9["text"] == "X":
+            b1.config(bg="red")
+            b5.config(bg="red")
+            b9.config(bg="red")
+            winner= True
+            messagebox.showinfo("Tic Tac Toe", "CONGRATULATONS YOU WON")
+            disableAllBtn()
+        elif b3["text"]=="X" and b5["text"]=="X" and b7["text"] == "X":
+            b3.config(bg="red")
+            b5.config(bg="red")
+            b7.config(bg="red")
+            winner= True
+            messagebox.showinfo("Tic Tac Toe", "CONGRATULATONS YOU WON")
+            disableAllBtn()
+
+
+        #check for O
+        if b1["text"]=="O" and b2["text"]=="O" and b3["text"] == "O":
+            b1.config(bg="red")
+            b2.config(bg="red")
+            b3.config(bg="red")
+            winner= True
+            messagebox.showinfo("Tic Tac Toe", "CONGRATULATONS YOU WON")
+            disableAllBtn()
+        elif b4["text"]=="O" and b5["text"]=="O" and b6["text"] == "O":
+            b4.config(bg="red")
+            b5.config(bg="red")
+            b6.config(bg="red")
+            winner= True
+            messagebox.showinfo("Tic Tac Toe", "CONGRATULATONS YOU WON")
+            disableAllBtn()
+        elif b7["text"]=="O" and b8["text"]=="O" and b9["text"] == "O":
+            b7.config(bg="red")
+            b8.config(bg="red")
+            b9.config(bg="red")
+            winner= True
+            messagebox.showinfo("Tic Tac Toe", "CONGRATULATONS YOU WON")
+            disableAllBtn()
+        elif b1["text"]=="O" and b4["text"]=="O" and b6["text"] == "O":
+            b1.config(bg="red")
+            b4.config(bg="red")
+            b6.config(bg="red")
+            winner= True
+            messagebox.showinfo("Tic Tac Toe", "CONGRATULATONS YOU WON")
+            disableAllBtn()
+        elif b2["text"]=="O" and b5["text"]=="O" and b8["text"] == "O":
+            b2.config(bg="red")
+            b5.config(bg="red")
+            b8.config(bg="red")
+            winner= True
+            messagebox.showinfo("Tic Tac Toe", "CONGRATULATONS YOU WON")
+            disableAllBtn()
+        elif b3["text"]=="O" and b6["text"]=="O" and b9["text"] == "O":
+            b3.config(bg="red")
+            b6.config(bg="red")
+            b9.config(bg="red")
+            winner= True
+            messagebox.showinfo("Tic Tac Toe", "CONGRATULATONS YOU WON")
+            disableAllBtn()
+        elif b1["text"]=="O" and b5["text"]=="O" and b9["text"] == "O":
+            b1.config(bg="red")
+            b5.config(bg="red")
+            b9.config(bg="red")
+            winner= True
+            messagebox.showinfo("Tic Tac Toe", "CONGRATULATONS YOU WON")
+            disableAllBtn()
+        elif b3["text"]=="O" and b5["text"]=="O" and b7["text"] == "O":
+            b3.config(bg="red")
+            b5.config(bg="red")
+            b7.config(bg="red")
+            winner= True
+            messagebox.showinfo("Tic Tac Toe", "CONGRATULATONS YOU WON")
+            disableAllBtn()
+
+    def bClick(b):
+        global Clicked, count
+
+        if b["text"]== " " and Clicked== True:
+            b["text"]= "X"
+            Clicked= False
+            count +=1
+            CheckWon()
+        
+        elif b["text"]==" " and Clicked== False:
+            b["text"] ="O"
+            Clicked= True
+            count +=1
+            CheckWon()
+
+        else:
+            messagebox.showerror("Tic Tac Toe", "Hey that box has already been selected !\n")
+
             
-            if i==5:
-                
-                b= Button(f, text=l[i][j][0], padx=15, bg=l[i][j][1], fg="white", pady=10, font="lucida 20 bold") 
-                b.bind("<Button-1>",click)
-                b.pack(side=LEFT, padx=5, pady=4)
-                    
-            else:
-                #button inside frame f =>Button(f,)
-                b= Button(f, text=l[i][j], padx=15, pady=10, bg="blue", fg="white",  font="lucida 20 bold")   
-                #binding button to a click event before packing
-                b.bind("<Button-1>", click)  
-                b.pack(side=LEFT, padx=5, pady=4)
+    #reset
+    def Reset():
+        global b1,b2,b3,b4,b5,b6,b7,b8,b9
+        global Clicked, count
+        Clicked=True
+        count=0
 
-            # packing frame
-            f.pack()
+        b1= Button(root, text=" ", font=("Helvetica", 20), height=3, width=6, bg="SystemButtonFace", command= lambda: bClick(b1))
+        b2= Button(root, text=" ", font=("Helvetica", 20), height=3, width=6, bg="SystemButtonFace", command= lambda: bClick(b2))
+        b3= Button(root, text=" ", font=("Helvetica", 20), height=3, width=6, bg="SystemButtonFace", command= lambda: bClick(b3))
+
+        b4= Button(root, text=" ", font=("Helvetica", 20), height=3, width=6, bg="SystemButtonFace", command= lambda: bClick(b4))
+        b5= Button(root, text=" ", font=("Helvetica", 20), height=3, width=6, bg="SystemButtonFace", command= lambda: bClick(b5))
+        b6= Button(root, text=" ", font=("Helvetica", 20), height=3, width=6, bg="SystemButtonFace", command= lambda: bClick(b6))
+
+        b7= Button(root, text=" ", font=("Helvetica", 20), height=3, width=6, bg="SystemButtonFace", command= lambda: bClick(b7))
+        b8= Button(root, text=" ", font=("Helvetica", 20), height=3, width=6, bg="SystemButtonFace", command= lambda: bClick(b8))
+        b9= Button(root, text=" ", font=("Helvetica", 20), height=3, width=6, bg="SystemButtonFace", command= lambda: bClick(b9))
+
+        #grid our buttons to screen
+        b1.grid(row=0, column=0)
+        b2.grid(row=0, column=1)
+        b3.grid(row=0, column=2)
+
+        b4.grid(row=1, column=0)
+        b5.grid(row=1, column=1)
+        b6.grid(row=1, column=2)
+
+        b7.grid(row=2, column=0)
+        b8.grid(row=2, column=1)
+        b9.grid(row=2, column=2)
+
+    #create menu:
+    menu= Menu(root)
+    root.config(menu=menu)
+
+    options=Menu(menu,tearoff=False)
+    menu.add_cascade(label="Options", menu=options)
+    options.add_command(label="Reset Game", command=Reset)
+
+    Reset()
 
     root.mainloop()
-
 
 def Audio():
     r=sr.Recognizer()
@@ -346,13 +490,13 @@ def Audio():
             hour= int(datetime.datetime.now().hour)
             if hour>=0 and hour<12:
                 speak("Good Morning Mam!")
-                speak("I am Shruti. I am your assistant. How can I help you?")
+                speak("I am Alexa. I am your assistant. How can I help you?")
             elif hour>=12 and hour<18:
                 speak("Good Afternoon Mam!")
-                speak("I am Shruti.I am your assistant. How can I help you?")
+                speak("I am Alexa.I am your assistant. How can I help you?")
             else:
                 speak("Good Evening Mam!")
-                speak("I am Shruti.I am your assistant. How can I help you?")
+                speak("I am Alexa.I am your assistant. How can I help you?")
 
         def music():
             speak('tell me the name of the song')
@@ -482,81 +626,6 @@ def Audio():
     task()
 
 
-def Games():
-    def Spin():
-        pick_no= randint(0,2) #pick random no.
-        #show image
-        image_label.config(image=image_list[pick_no])   #to set anew img
-
-        #0=Rock, 1=Paper, 2=scissors
-        #conert dropdown choice to numbers
-        if choice.get()== "Rock":
-            choice_value= 0   #list index =0 for rock
-        elif choice.get()== "Paper":
-            choice_value= 1
-        elif choice.get()== "Scissors":
-            choice_value= 2
-
-        #determine result:
-        if choice_value== 0: #rock
-            if pick_no ==0:
-                result.config(text="It's a Tie ! Spin Again!")
-            elif pick_no ==1:
-                result.config(text="Paper Covers Rock ! You Lose!")
-            elif pick_no==2:
-                result.config(text="Rock Smashes Scissors ! You win!")
-
-        if choice_value== 1: #paper
-            if pick_no ==0:
-                result.config(text="Paper Covers Rock ! You Win!")
-            elif pick_no ==1:
-                result.config(text="It's a Tie ! Spin Again!")
-            elif pick_no==2:
-                result.config(text="Scissors Cuts Paper ! You Lose!")
-
-        if choice_value== 2: #scissors
-            if pick_no ==0:
-                result.config(text="Rock Smashes Scissors ! You Lose!")
-            elif pick_no ==1:
-                result.config(text="Scissors Cuts Paper ! You Win!")
-            elif pick_no==2:
-                result.config(text="It's a Tie ! Spin Again!")
-
-    root= Tk()
-    root.title('GAME: Rock, Paper, Scissors')
-    # root.iconbitmap('')
-    root.geometry("500x600")
-
-    root.config(bg="palegreen")
-
-    rock= PhotoImage(file='rock.png')
-    paper= PhotoImage(file='paper.png')
-    scis =PhotoImage(file='sci.png')
-
-    #list of images
-    image_list= [rock, paper, scis]
-
-    #rand no b/w 0-2 =>0,1,2
-    pick_no =randint(0,2)
-
-    #image on prog start
-    image_label= Label(root,image=image_list[pick_no])
-    image_label.pack(pady=20)
-
-    #dropdown
-    choice= ttk.Combobox(root, value=("Rock","Paper","Scissors"))
-    choice.current(0)  #for initial display as rock  #default
-    choice.pack(pady=20)
-
-    #spin button
-    spinbtn= Button(root, text="SPIN", command=Spin, bg="darkgreen", fg="white", font="garamond 25 bold")
-    spinbtn.pack(pady=20)
-
-    result= Label(root, text="", font="garamond 20 bold", bg="palegreen", fg="navy")
-    result.pack(pady=20)
-
-    root.mainloop()
-
 text=Label(root,text="<Welcome>", fg="black")
 text.pack(pady=30)
     
@@ -572,11 +641,11 @@ dt= Button(root, text="Check Date and Time",command=dateTime,font="garamond 16 b
 dt.pack(fill=X, padx=10,pady=20)
 
 
-music= Button(root, text="Calculator", command=Calculator,font="garamond 16 bold", bg="grey", fg="black")
+music= Button(root, text="Play Tic Tac Toe", command=TicTacToe,font="garamond 16 bold", bg="grey", fg="black")
 music.pack(fill=X, padx=10,pady=20)
 
 
-search= Button(root, text="Play Games",command=Games, bg="black",font="garamond 16 bold", fg="white")
+search= Button(root, text="Play Games", bg="black",font="garamond 16 bold", fg="white")
 search.pack(fill=X, padx=10,pady=20)
 
 
@@ -588,7 +657,6 @@ def micro_hover_leave(event):
     btnStatus.config(text="")
 
 photo = PhotoImage(file = r"mic.png")        # Creating a photoimage object to use image
-photo = PhotoImage(file = r"mic.png")
   
 photoimage = photo.subsample(20, 20)          # Resizing image
   

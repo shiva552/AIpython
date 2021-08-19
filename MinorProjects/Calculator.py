@@ -16,7 +16,7 @@ def click(event):
                 value= "Error !"
                 screen.update()
 
-        scvalue.set(value)     #seting value in scvalue
+        scvalue.set(value)     #seting value in scvalues
         screen.update()         
 
     elif text== "C":
@@ -30,6 +30,7 @@ def click(event):
 
 root= Tk()
 root.geometry("270x570")
+root.resizable(False,False)
 root.title("Calculator")
 root.call('wm', 'iconphoto', root._w, PhotoImage(file='cal.png'))  #icon
 
@@ -37,9 +38,7 @@ scvalue= StringVar()
 # The Tkinter StringVar helps you manage the value of a widget such as a Label or Entry more effectively.
 scvalue.set("")
 screen= Entry(root,textvar=scvalue, font="lucida 30 bold")
-# textvariable are similar in concept, in that both represent variable data. In the case of textvariable ,
-# which is mostly used with Entry and Label widgets,
-# it is a variable that will be displayed as text. When the variable changes, the text of the widget changes as well.
+
 screen.pack(fill=X,padx=10,pady=10,ipadx=10)
 
 

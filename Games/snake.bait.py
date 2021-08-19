@@ -124,7 +124,7 @@ my_canvas.pack()
 
 root.update()
 
-root_width= root.winfo_width()
+root_width= root.winfo_width()   #Return window-related information
 root_height= root.winfo_height()
 screen_width= root.winfo_screenwidth()
 screen_height= root.winfo_screenheight()
@@ -134,6 +134,7 @@ y= int((screen_height/2)-(root_height/2))
 
 root.geometry(f"{root_width}x{root_height}+{x}+{y}")
 
+#The Lambda runtime converts the event to an object and passes it to your function code.
 root.bind("<Left>", lambda event: change_direction('left'))
 root.bind("<Right>", lambda event: change_direction('right'))
 root.bind("<Up>", lambda event: change_direction('up'))
