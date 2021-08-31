@@ -110,6 +110,7 @@ def game_over():
     
 
 root= Tk()
+root.geometry("600x700")
 root.title("Snake & Bait")
 root.resizable(False,False)  #cannot be resized
 
@@ -123,16 +124,6 @@ my_canvas= Canvas(root, bg= BACKGROUND_COLOR, height=GAME_HEIGHT, width=GAME_WID
 my_canvas.pack()
 
 root.update()
-
-root_width= root.winfo_width()   #Return window-related information
-root_height= root.winfo_height()
-screen_width= root.winfo_screenwidth()
-screen_height= root.winfo_screenheight()
-
-x= int((screen_width/2)-(root_width/2))
-y= int((screen_height/2)-(root_height/2))
-
-root.geometry(f"{root_width}x{root_height}+{x}+{y}")
 
 #The Lambda runtime converts the event to an object and passes it to your function code.
 root.bind("<Left>", lambda event: change_direction('left'))
